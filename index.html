@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Easy peasy writer</title>
+  <meta name="description" content="Easy Writer - HTML5 canvas based writer.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <link rel="stylesheet" href="css/easywriteold.css">
+
+ <style>
+
+</style> 
+
+</head>
+<body onselectstart="return false" >
+  <div id="signature-pad" class="signature-pad" style= "position: sticky; position: -webkit-sticky;
+        top: 0;">
+    <div class="signature-pad--body" style= "position: sticky; position: -webkit-sticky;
+        top: 0;">
+       
+
+<canvas id="myCanvas" width=100% height=100% style= "position: relative;top: 0; overflow: hidden; border:1px solid #d3d3d3; z-index:999;">
+
+Your browser does not support the HTML5 canvas tag.</canvas>
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+</script>
+    </div>
+
+  
+
+<div class="display-pad" style = "position = absolute; overflow = auto;">
+<canvas id="mydisplay" width= 1090 style = "overflow = auto;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+<script>
+var c2 = document.getElementById("mydisplay");
+c2.width  = window.innerWidth;
+c2.height = window.innerHeight*6;
+var ctx2 = c2.getContext("2d");
+</script>
+  </div>
+ <div>
+            <img src="images/Delete.png" data-action = "clear" ></img>
+            <img src="images/Space.png"></img>
+            <img src="images/Undo.png" data-action = "undo" ></img>
+            <img src="images/Space.png"></img>            
+           <img src="images/Red.png" onclick = "colorR()" ></img>
+            <img src="images/Orange.png" onclick = "colorO()" ></img>
+            <img src="images/Yellow.png" onclick = "colorY()" ></img>
+            <img src="images/Green.png" onclick = "colorG()" ></img>
+            <img src="images/Blue.png" onclick = "colorBl()" ></img>
+            <img src="images/Purple.png" onclick = "colorP()" ></img>
+            <img src="images/Black.png" onclick = "colorB()" ></img>
+            <img src="images/Space.png"></img>
+            <img src="images/Space.png"></img>
+            <img src="images/Keep.png" data-action = "keep" ></img>
+            <img src="images/Space.png"></img>
+            <img src="images/Save.png" data-action = "savePDF" ></img>                 
+
+        </div>
+
+</div>
+
+
+
+
+  <script src="js/signature_pad.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
