@@ -9,21 +9,49 @@ var changeColorBlue = wrapper.querySelector("[data-action=colorBl]");
 var changeColorPurple = wrapper.querySelector("[data-action=colorP]");
 var changeColorBlack = wrapper.querySelector("[data-action=colorB]");
 var undoButton = wrapper.querySelector("[data-action=undo]");
-var savePDFButton = wrapper.querySelector("[data-action=save-pdf]");
+var savePDFButton = wrapper.querySelector("[data-action=savePDF]");
 var savePNGButton = wrapper.querySelector("[data-action=save-png]");
 var saveJPGButton = wrapper.querySelector("[data-action=save-jpg]");
 var saveSVGButton = wrapper.querySelector("[data-action=save-svg]");
 var canvas = wrapper.querySelector("canvas");
+var wrapper2 = document.getElementById('display-pad');
+var canvas2 = wrapper2.querySelector("canvas");
+var cheight = parseInt(canvas2.getAttribute("height"));
+var cwidth = parseInt(canvas2.getAttribute("width"));
+ctx2.fillStyle = "white";
+ctx2.fillRect(0,0,cwidth,cheight);
+
+var t = 0;
 var signaturePad = new SignaturePad(canvas, {
   // It's Necessary to use an opaque color when saving image as JPEG;
   // this option can be omitted if only saving as PNG or SVG
-  backgroundColor: 'rgb(255, 255, 255)'  
+  backgroundColor: 'rgba(0,0,0,t)'  
 });
+
 var displayPad = signaturePad;
 //const canvas2 = document.getElementById("mydisplay");
 //const ctx2 = canvas2.getContext("2d");
 var xpos = 0;
 var ypos = 0;
+ctx.lineWidth = 3;
+ctx.strokeStyle = "lightcyan";
+
+function savePDF() {
+  if (1==2) {
+    var xxx=1;
+  } else {
+    var context = canvas2.getContext('2d');
+    var imgData = canvas2.toDataURL("image/jpeg", 1.0);
+    var pdf = new jsPDF({
+        unit:"px",
+        format: [cheight*2,cwidth*0.6]
+        });
+     pdf.addImage(imgData, 'JPEG', 0, 0);
+     pdf.save("download.pdf");
+    //var dataURL = canvas2.toDataURL();
+    //download(dataURL, "write-easy.png");
+  }
+}
 
 
 function colorR(){
@@ -102,14 +130,24 @@ function resizeCanvas() {
   // that the state of this library is consistent with visual state of the canvas, you
   // have to clear it manually.
   signaturePad.clear();
-        r=0; g=0; b=0; a=255;
+var r=255; 
+    var g=255; 
+    var b=255; 
+    var a=1;
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "lightcyan";
         // Select a fill style
-        ctx.fillStyle = "rgba("+r+","+g+","+b+","+(a/255)+")";
-        //ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(0,0,0,t)';
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
         ctx.moveTo(canvas.width-5, canvas.height*0.6);
         ctx.lineTo(5, canvas.height*0.6);
         ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(canvas.width-5, canvas.height*0.6+3);
+        ctx.lineTo(5, canvas.height*0.6+3);
+        //ctx.stroke();
+
         ctx.beginPath();
         ctx.moveTo(canvas.width-5, canvas.height*0.6+canvas.height/4);
         ctx.lineTo(5, canvas.height*0.6+canvas.height/4);
@@ -117,10 +155,6 @@ function resizeCanvas() {
         ctx.beginPath();
         ctx.moveTo(canvas.width-5, canvas.height*0.6-canvas.height/4);
         ctx.lineTo(5, canvas.height*0.6-canvas.height/4);
-        ctx.stroke();
-ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6+3);
-        ctx.lineTo(5, canvas.height*0.6+3);
         ctx.stroke();
         ctx.beginPath();
         ctx.moveTo(canvas.width-5, canvas.height*0.6+canvas.height/4+3);
@@ -171,14 +205,24 @@ function dataURLToBlob(dataURL) {
 
 clearButton.addEventListener("click", function (event) {
   signaturePad.clear();
-r=10; g=10; b=0; a=255;
+var r=255; 
+    var g=255; 
+    var b=255; 
+    var a=0;
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "lightcyan";
         // Select a fill style
-        ctx.fillStyle = "rgba("+r+","+g+","+b+","+(a/255)+")";
-        //ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = ctx.fillStyle = 'rgba(0,0,0,t)';;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
         ctx.moveTo(canvas.width-5, canvas.height*0.6);
         ctx.lineTo(5, canvas.height*0.6);
         ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(canvas.width-5, canvas.height*0.6+3);
+        ctx.lineTo(5, canvas.height*0.6+3);
+        //ctx.stroke();
+
         ctx.beginPath();
         ctx.moveTo(canvas.width-5, canvas.height*0.6+canvas.height/4);
         ctx.lineTo(5, canvas.height*0.6+canvas.height/4);
@@ -186,10 +230,6 @@ r=10; g=10; b=0; a=255;
         ctx.beginPath();
         ctx.moveTo(canvas.width-5, canvas.height*0.6-canvas.height/4);
         ctx.lineTo(5, canvas.height*0.6-canvas.height/4);
-        ctx.stroke();
-ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6+3);
-        ctx.lineTo(5, canvas.height*0.6+3);
         ctx.stroke();
         ctx.beginPath();
         ctx.moveTo(canvas.width-5, canvas.height*0.6+canvas.height/4+3);
@@ -205,20 +245,48 @@ COPYMEButton.addEventListener("click", function (event) {
 if (xpos == 4){
     xpos = 0
     ypos = ypos + 1}
+wrapper2.children[0].offsetParent.offsetHeight = math.ceil((ypos)*canvas.height/6);
+let pos = 400;
+/*
+if ('overflow' in wrapper2.style) { //Checks if browser supports scroll function
+        wrapper2.window.scroll({
+            top : pos,
+            left : 0,
+            behavior : 'smooth'
+        });
+    } else {
+        wrapper2.smoothScrollTo(0, pos, 500); //polyfill below
+    }
+*/
+console.log(wrapper2.children[0])
+console.log(math.ceil((ypos)*canvas.height/6))
 
-ctx2.drawImage(canvas,0,canvas.height/2.5-canvas.height/2.8,canvas.width,canvas.height/2.5+canvas.height/2,(xpos)*canvas.width/4,(ypos)*canvas.height/6,canvas.width/4,canvas.height/6);
+
+ctx2.drawImage(canvas,0,canvas.height/2.5-canvas.height/2.8,canvas.width-5,canvas.height/2.5+canvas.height/2,(xpos)*canvas.width/4,(ypos)*canvas.height/6,canvas.width/4,canvas.height/6);
 xpos = xpos + 1;
 
 
+
+
   signaturePad.clear();
-r=10; g=10; b=0; a=255;
+   var r=255; 
+    var g=255; 
+    var b=255; 
+    var a=0;
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "lightcyan";
         // Select a fill style
-        ctx.fillStyle = "rgba("+r+","+g+","+b+","+(a/255)+")";
-        //ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = ctx.fillStyle = 'rgba(0,0,0,t)';;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
         ctx.moveTo(canvas.width-5, canvas.height*0.6);
         ctx.lineTo(5, canvas.height*0.6);
         ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(canvas.width-5, canvas.height*0.6+3);
+        ctx.lineTo(5, canvas.height*0.6+3);
+        //ctx.stroke();
+
         ctx.beginPath();
         ctx.moveTo(canvas.width-5, canvas.height*0.6+canvas.height/4);
         ctx.lineTo(5, canvas.height*0.6+canvas.height/4);
@@ -226,10 +294,6 @@ r=10; g=10; b=0; a=255;
         ctx.beginPath();
         ctx.moveTo(canvas.width-5, canvas.height*0.6-canvas.height/4);
         ctx.lineTo(5, canvas.height*0.6-canvas.height/4);
-        ctx.stroke();
-ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6+3);
-        ctx.lineTo(5, canvas.height*0.6+3);
         ctx.stroke();
         ctx.beginPath();
         ctx.moveTo(canvas.width-5, canvas.height*0.6+canvas.height/4+3);
@@ -239,6 +303,7 @@ ctx.beginPath();
         ctx.moveTo(canvas.width-5, canvas.height*0.6-canvas.height/4+3);
         ctx.lineTo(5, canvas.height*0.6-canvas.height/4+3);
         ctx.stroke();
+        canvas2.scrollBy(0, 200);
 });
 
 undoButton.addEventListener("click", function (event) {
@@ -250,30 +315,22 @@ undoButton.addEventListener("click", function (event) {
   }
 });
 
-changeColorButton.addEventListener("click", function (event) {
-  var r = Math.round(Math.random() * 255);
-  var g = Math.round(Math.random() * 255);
-  var b = Math.round(Math.random() * 255);
-  var color = "rgb(" + r + "," + g + "," + b +")";
 
-  signaturePad.penColor = color;
-});
-
-savePDFButton.addEventListener("click", function (event) {
-  if (signaturePad.isEmpty()) {
-    alert("Please provide writing first.");
+savePNGButton.addEventListener("click", function (event) {
+  if (ctx2.isEmpty()) {
+    alert("Please provide pdf first.");
   } else {
-    var dataURL = signaturePad.toDataURL();
-    download(dataURL, "signature.png");
+    var dataURL = ctx.toDataURL();
+    download(dataURL, "signature.pdf");
   }
 });
 
-savePNGButton.addEventListener("click", function (event) {
-  if (signaturePad.isEmpty()) {
-    alert("Please provide writing first.");
+savePDFButton.addEventListener("click", function (event) {
+  if (displayPad.isEmpty()) {
+    alert("Please provide writing data-action first.");
   } else {
-    var dataURL = signaturePad.toDataURL();
-    download(dataURL, "signature.png");
+    //var dataURL = displayPad.toDataURL();
+    //download(dataURL, "write-easy.png");
   }
 });
 

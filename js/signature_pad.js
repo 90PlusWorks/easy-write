@@ -219,7 +219,7 @@ SignaturePad.prototype.fromDataURL = function (dataUrl) {
   this._isEmpty = false;
 };
 
-SignaturePad.prototype.toDataURL = function (type) {
+SignaturePad.prototype.toDataURL2 = function (type) {
   var _canvas;
 
   switch (type) {
@@ -230,7 +230,7 @@ SignaturePad.prototype.toDataURL = function (type) {
         options[_key - 1] = arguments[_key];
       }
 
-      return (_canvas = this._canvas).toDataURL.apply(_canvas, [type].concat(options));
+      return (_canvas = this._canvas).toDataURL2.apply(_canvas, [type].concat(options));
   }
 };
 
@@ -268,7 +268,7 @@ SignaturePad.prototype._strokeUpdate = function (event) {
   var x = event.clientX;
   var y = event.clientY;
 
-  var point = this._createPoint(x, y);
+  var point = this._createPoint(x, y*1.07); //theuns scaled this
   var lastPointGroup = this._data[this._data.length - 1];
   var lastPoint = lastPointGroup && lastPointGroup[lastPointGroup.length - 1];
   var isLastPointTooClose = lastPoint && point.distanceTo(lastPoint) < this.minDistance;
