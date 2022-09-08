@@ -44,8 +44,8 @@ float: left;
   height: 100%;
   max-width: 100%;
   max-height: 100%;
-  border: 1px solid #e8e8e8;
-  background-color: #abf;
+  border: 1px solid #f0f;
+  background-color: #fff;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.27), 0 0 5px rgba(0, 0, 0, 0.08) inset;
   border-radius: 4px;
   padding: 5px;
@@ -100,7 +100,7 @@ canvas {
 }
 
 .signature-pad--footer {
-  color: #C3C3C3;
+  color: #fff;
   text-align: center;
   font-size: 1.2em;
   margin-top: 8px;
@@ -124,7 +124,7 @@ canvas {
   height: 30%;
   max-width: 100%;
   max-height: 100%;
-  border: 1px solid #e8e8e8;
+  border: 1px solid #ff0;
   background-color: #fff;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.27), 0 0 5px rgba(0, 0, 0, 0.08) inset;
   border-radius: 4px;
@@ -146,5 +146,50 @@ canvas {
   height: 100%;
   border-radius: 4px;
   box-shadow: 0 0 5px rgba(5, 0, 0, 0.02) inset;
+}
+.container{
+  background-color: rgba(100,201,154);
+  padding : 20px;
+  margin : 50px auto;
+  border : 2px solid white;
+  display : grid;
+  width : 70%;
+}
+.splash{
+  cursor : pointer;
+  position : fixed;
+  top : 50%;
+  left : 50%;
+  height : 95%;
+  width : 95%;
+  transform : translate(-50%,-50%);    
+  background-color: rgba(0,0,0);
+  transition : all ease-in-out 600ms;
+}
+.hidden{
+  transition : 0.5s;
+  display : none;
+}
+.splash-header {
+  height : 90%;
+  color : white;
+  font-family : consolas;
+  font-size : 30px;
+  display : flex;
+  justify-content: center;
+  align-items : center;
+}
+
+body {
+  background-color: rgba(200,200,170);
+}
+
+.btn {
+/*   border : none; */
+/*   padding : 10px; */
+/*   position : fixed; */
+  z-index : -1;
+  left : 50%;
+  transform : translateX(-50%);
 }
 
