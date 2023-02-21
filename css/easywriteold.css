@@ -25,6 +25,7 @@ body {
   padding: 2px 2px;
   font-family: Helvetica, Sans-Serif;
 float: left;
+font-size: 10px;
 }
 
 .signature-pad {
@@ -39,7 +40,7 @@ float: left;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  font-size: 10px;
+  font-size: 100px!important;
   width: 100%;
   height: 100%;
   max-width: 100%;
@@ -102,7 +103,7 @@ canvas {
 .signature-pad--footer {
   color: #fff;
   text-align: center;
-  font-size: 1.2em;
+  font-size: 2.2em;
   margin-top: 8px;
 }
 
@@ -114,6 +115,15 @@ canvas {
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-top: 8px;
+}
+.input {
+  position: relative;
+  display: block;
+  float: right;
+  margin: auto;
+  padding: 0px;
+  top: 50%;
+  transform: translateY(-100%);
 }
 
 .display-pad {
@@ -170,11 +180,16 @@ canvas {
   transition : 0.5s;
   display : none;
 }
+.canvas  {
+   text-size-adjust: none;
+}
+
+}
 .splash-header {
   height : 90%;
   color : white;
   font-family : consolas;
-  font-size : 30px;
+  font-size : 60px;
   display : flex;
   justify-content: center;
   align-items : center;
@@ -182,7 +197,7 @@ canvas {
 
 body {
   background-color: rgba(200,200,170);
-}
+
 
 .btn {
 /*   border : none; */
@@ -191,5 +206,15 @@ body {
   z-index : -1;
   left : 50%;
   transform : translateX(-50%);
+
+}
+.textarea {
+   text-size-adjust: none;
+
+}
+.canvas  {
+   font-size: 10px!important;
+
+}
 }
 
