@@ -19,6 +19,9 @@
 
 </head>
 <body onselectstart="return false" >
+   
+
+
 
 
 
@@ -27,8 +30,11 @@
 
     <div class="signature-pad--body" style= "position: sticky; position: -webkit-sticky;
         top: 0;">
+      
+      
 
-<canvas id="myCanvas" width=100% height=100% style= "position: absolute;top: 0; overflow: hidden; border:1px solid #fff; background: #fff; z-index:999;">
+<canvas id="myCanvas" width=100% height=100% style= "position: absolute;top: 0; overflow: hidden; border:1px solid #fff; background: #fff; ">
+  
 
 Your browser does not support the HTML5 canvas tag.</canvas>
 <script>
@@ -41,6 +47,7 @@ var ctx = c.getContext("2d");
 
 <div class="display-pad" id="display-pad" style = "position = relative; overflow = auto;">
 <canvas id="mydisplay" width= 100% style = "overflow = auto; background: #fff;">
+
 
 
 Your browser does not support the HTML5 canvas tag.</canvas>
@@ -56,10 +63,11 @@ var ctx2 = c2.getContext("2d");
 
 
 </script>
-
+  
+  
 
   </div>
- <div>
+ <div id = "hide">
             <img src="images/Delete.png" data-action = "clear" ></img>
            <img src="images/Red.png" onclick = "colorR()" ></img>
             <img src="images/Orange.png" onclick = "colorO()" ></img>
@@ -83,7 +91,9 @@ var ctx2 = c2.getContext("2d");
   
 
         </div>
-        
+ 
+<button onclick="copyme()"   >Copy</button><br>
+<button onclick="hide()"   >Options</button>
 
 </div>
 
