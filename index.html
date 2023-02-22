@@ -80,8 +80,9 @@ var ctx2 = c2.getContext("2d");
             <img src="images/Keep.png" data-action = "keep" ></img>
             <img src="images/newline.png" onclick = "mynewline()" ></img>
             <img src="images/Save.png" onclick = "savePDF()"></img>
-              <canvas id='textCanvas' height=20 display=none ></canvas>
+              
             <textarea id='text' text-size-adjust=none></textarea>
+            <canvas id='textCanvas' height=20 display=none ></canvas>
             <script>
             document.getElementById("text").value = ' ';
            </script>
@@ -92,7 +93,7 @@ var ctx2 = c2.getContext("2d");
 
         </div>
  
-<button onclick="copyme()"   >Copy</button><br>
+<button onclick="copyme()"   >Copy</button>
 <button onclick="hide()"   >Options</button>
 
 </div>
