@@ -34,6 +34,15 @@ ctx.strokeStyle = "lightcyan";
 
 var rightMouseClicked = false;
 
+function hide() {
+  var x = document.getElementById("hide");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+} 
+
 function handleMouseDown(e) {
   //e.button describes the mouse button that was clicked
   // 0 is left, 1 is middle, 2 is right
