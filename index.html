@@ -5,7 +5,7 @@
   <title>Easy peasy writer</title>
   <meta name="description" content="Easy Writer - HTML5 canvas based writer.">
 
-  <meta name="viewport" id='btnClick' content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" id='btnClick' content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -14,92 +14,113 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 <script>src="js/math.js"</script>
 
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
 
 
 </head>
-<body onselectstart="return false" >
+<body onselectstart="return false" style = "margin: 0;padding: 0;" >
    
 
 
 
 
 
-  <div id="signature-pad" class="signature-pad" style= "position: sticky; position: -webkit-sticky;
-        top: 0;">
+  <div id="signature-pad" class="signature-pad" style= "position: sticky; 
+  position: -webkit-sticky;top: 0;background: #0f0;margin: 0;padding: 0;">
 
-    <div class="signature-pad--body" style= "position: sticky; position: -webkit-sticky;
-        top: 0;">
+    <div class="signature-pad--body" style = "position: sticky; position: -webkit-sticky;
+        top: 0;background: #fff;margin: 0;padding: 0;">
       
       
 
-<canvas id="myCanvas" width=100% height=100% style= "position: absolute;top: 0; overflow: hidden; border:1px solid #fff; background: #fff; ">
+<canvas id="myCanvas" width=100% height=100% style= "position: absolute;top: 0; overflow: hidden; border:1px solid #fff; background: #def;margin: 0;padding: 0; ">
   
 
 Your browser does not support the HTML5 canvas tag.</canvas>
 <script>
 var c = document.getElementById("myCanvas");
-var ctx = c.getContext("2d");
+var ctx = c.getContext("2d"); //the draw/write area
 </script>
     </div>
 
 
 
-<div class="display-pad" id="display-pad" style = "position = relative; overflow = auto;">
-<canvas id="mydisplay" width= 100% style = "overflow = auto; background: #fff;">
+<div class="display-pad" id="display-pad" style = "position = relative; overflow = auto;
+background: #f00;">
+<canvas id="mydisplay" width= 100% style = "overflow = auto; background: #fff;margin: 0;padding: 0;">
 
 
 
 Your browser does not support the HTML5 canvas tag.</canvas>
 
 <script>
-
-
 var c2 = document.getElementById("mydisplay");
 var scroll = c2.scrollTop;
 c2.width  = window.innerWidth;
 c2.height = window.innerHeight*6;
 var ctx2 = c2.getContext("2d");
-
-
 </script>
   
-  
-
   </div>
- <div id = "hide">
-            <img src="images/Delete.png" data-action = "clear" ></img>
-           <img src="images/Red.png" onclick = "colorR()" ></img>
-            <img src="images/Orange.png" onclick = "colorO()" ></img>
-            <img src="images/Yellow.png" onclick = "colorY()" ></img>
-            <img src="images/Green.png" onclick = "colorG()" ></img>
-            <img src="images/Blue.png" onclick = "colorBl()" ></img>
-            <img src="images/Purple.png" onclick = "colorP()" ></img>
-            <img src="images/Black.png" onclick = "colorB()" ></img>
-             <img src="images/centre.png" onclick = "centre()" ></img>
-            <img src="images/Keep.png" data-action = "keep" ></img>
-            <img src="images/newline.png" onclick = "mynewline()" ></img>
-            <img src="images/Save.png" onclick = "savePDF()"></img>
-              
-            <textarea id='text' text-size-adjust=none></textarea>
-            <canvas id='textCanvas' height=20 display=none ></canvas>
-            <script>
-            document.getElementById("text").value = ' ';
-           </script>
-
-            
-
-  
-
-        </div>
  
-<button onclick="copyme()"   >Copy</button>
-<button onclick="hide()"   >Options</button>
+<button onclick="copyme()"  style = "margin: 0;padding: 0;" >Copy</button>
+<button onclick="hide()"  style = "margin: 0;padding: 0;" >Options</button>
 
 </div>
+<div id = "hide" style = "height: 20px; 
+        background-color: #fff;
+        position: absolute;
+        top: 0; 
+        width: 100%; 
+        display: none;
+        margin: 0; 
+        padding: 0;">
+            <img src="images/S/Delete.png" onclick = "clearme()" data-action = "clear" ></img>
+           <img src="images/S/Red.png" onclick = "colorR()" ></img>
+            <img src="images/S/Orange.png" onclick = "colorO()" ></img>
+            <img src="images/S/Yellow.png" onclick = "colorY()" ></img>
+            <img src="images/S/Green.png" onclick = "colorG()" ></img>
+            <img src="images/S/Blue.png" onclick = "colorBl()" ></img>
+            <img src="images/S/Purple.png" onclick = "colorP()" ></img>
+            <img src="images/S/Black.png" onclick = "colorB()" ></img>
+           <img src="images/S/centre.png" onclick = "centre()" ></img>
+            <img src="images/S/Keep.png" onclick = "copyme()" data-action = "keep" ></img>
+            <img src="images/S/newline.png" onclick = "mynewline()" ></img>
+            <img src="images/S/Save.png" onclick = "savePDF()"></img>
+            <textarea id='text' text-size-adjust=none display=none></textarea>
+            <canvas id='textCanvas' height=20></canvas>
+<script>
+    const canvastc = document.getElementById("textCanvas");
+    canvastc.style.font = canvastc.getContext("2d").font;
+    console.log(canvastc.style.font);
+    canvastc.style.fontSize = "24px arial";
+    console.log(canvastc.style.font);
 
+//canvastc.getContext("2d").font = canvastc.style.font;
+    
+    const ctxtc = canvastc.getContext("2d");
+    var cFont = ctxtc.font;
+    var fontArgs = ctxtc.font.split(' ');
+    var newSize = '24px';
+    ctxtc.font = newSize + ' ' + fontArgs[fontArgs.length - 1]; /// using the last part
+
+// Match on digit at least once, optional decimal, and optional digits
+// Named group `value`
+//const match = /(?<value>\d+\.?\d*)/;
+
+//const setFontSize = (size) => ctxtc.font = ctxtc.font.replace(match, size);
+
+//const adjustFontSize = (amount) => {
+  //const newSize = parseFloat(ctxtc.font.match(match).groups.value + amount);
+  //return ctxtc.font = ctxtc.font.replace(match, newSize);
+//}
+            
+            document.getElementById("text").value = ' ';
+           </script>
+        </div>
 <script src="js/signature_pad.js"></script>
 <script src="js/app2.js"></script>
+
 
 
 
