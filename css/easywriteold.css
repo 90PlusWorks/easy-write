@@ -27,6 +27,29 @@ body {
 float: left;
 font-size: 10px;
 }
+.button1{
+    width: 30vw;
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+}
+.button2{
+    width: 30vw;
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+}
+.button3{
+    width: 30vw;
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+}
+.containB{
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
 
 .signature-pad {
   position: -webkit-sticky;
