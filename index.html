@@ -47,7 +47,7 @@ var ctx = c.getContext("2d"); //the draw/write area
 
 <div class="display-pad" id="display-pad" style = "position = relative; overflow = auto;
 background: #f00;">
-<canvas id="mydisplay" width= 100% style = "overflow = auto; background: #fff;margin: 0;padding: 0;">
+<canvas class = "containB" id="mydisplay" width= 100% style = "overflow = auto; background: #fff;margin: 0;padding: 0;">
 
 
 
@@ -60,21 +60,29 @@ c2.width  = window.innerWidth;
 c2.height = window.innerHeight*6;
 var ctx2 = c2.getContext("2d");
 </script>
-  
-  </div>
- 
-<button onclick="copyme()"  style = "margin: 0;padding: 0;" >Copy</button>
-<button onclick="hide()"  style = "margin: 0;padding: 0;" >Options</button>
-
 </div>
-<div id = "hide" style = "height: 20px; 
+</div>
+<div id = "hide3" style = "height: 1px; 
         background-color: #fff;
         position: absolute;
         top: 0; 
         width: 100%; 
+        margin: 0; 
+        padding: 0;">
+<button id = "button1" onclick="copyme()"  style = "display:inline-block; width: 32vw; margin: 0;padding: 0;" >Copy</button>
+<button id = "button2" onclick="hide()"  style = "display:inline-block; width: 32vw; margin: 0;padding: 0;" >Options</button>
+<button id = "button3" onclick="hide2()"  style = "display:inline-block; width: 32vw; margin: 0;padding: 0;" >Help</button>
+</div>
+<div id = "hide" style = "width: 20px; 
+        background-color: #fff;
+        position: absolute;
+        left: 0; 
+        height: 100%; 
         display: none;
         margin: 0; 
         padding: 0;">
+  <textarea id='text' text-size-adjust=none display=none style = "display:inline-block;"></textarea>
+            <canvas id='textCanvas' height=20 style = "display:inline-block;"></canvas>
             <img src="images/S/Delete.png" onclick = "clearme()" data-action = "clear" ></img>
            <img src="images/S/Red.png" onclick = "colorR()" ></img>
             <img src="images/S/Orange.png" onclick = "colorO()" ></img>
@@ -87,8 +95,7 @@ var ctx2 = c2.getContext("2d");
             <img src="images/S/Keep.png" onclick = "copyme()" data-action = "keep" ></img>
             <img src="images/S/newline.png" onclick = "mynewline()" ></img>
             <img src="images/S/Save.png" onclick = "savePDF()"></img>
-            <textarea id='text' text-size-adjust=none display=none></textarea>
-            <canvas id='textCanvas' height=20></canvas>
+            
 <script>
     const canvastc = document.getElementById("textCanvas");
     canvastc.style.font = canvastc.getContext("2d").font;
@@ -118,6 +125,30 @@ var ctx2 = c2.getContext("2d");
             document.getElementById("text").value = ' ';
            </script>
         </div>
+<div id = "hide2" style = "background-color: #fff;
+        position: absolute;
+        top: 0;
+        text-align: center;
+        width: 70%; 
+        display: none;
+        margin: 20; 
+        padding: 20;"><br>
+  <H1 >
+  Click on the HELP button to hide this message.<br>
+  Click on the COPY button to copy your writing to the PDF.<br>
+  Click on the OPTIONS button to show or hide additional icons.<br><br>
+    Easy-peasy writing tool if you struggle with small writing. <br>
+    You write large in the blue area below and click on COPY to move the writing to the top pdf page. <br>
+    Use for class, mathematics or any other purpose. Write on your phone or tablet, then press the white check mark or Copy Button to transcribe to the pdf area. <br>
+    You can also type in the text box and submit the text using the same white check icon or the COPY button. <br> <br>
+    Use the red PDF icon to download the document in PDF to your computer.<br>
+    The White X icon deletes the current writing without transferring it to the PDF side.<br>
+    The Colour icons pick a pen colour.<br>
+    The C-target icon places the current writing on a new line on the centre of the PDF<br>
+    The NEW icon moves to a new line in the PDF.<br>
+     <br>
+  Click on the HELP button to hide this message.
+    </H1></div>
 <script src="js/signature_pad.js"></script>
 <script src="js/app2.js"></script>
 
