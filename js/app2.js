@@ -52,22 +52,31 @@ function hide() {
   }
 } 
 
-//function handleMouseDown(event) {
+function hide2() {
+  var x = document.getElementById("hide2");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+} 
+/*
+function handleMouseDown(event) {
   //e.button describes the mouse button that was clicked
   // 0 is left, 1 is middle, 2 is right
-  /*if (event.button === 2) {
+  if (event.button === 2) {
     rightMouseClicked = true;
-    getMousePosition(canvas,event);
-    var mpos = getMousePosition(canvas,event);
-    console.log("rightMouseClicked2: ",mpos);
+    getMousePosition(event);
+    //var mpos = getMousePosition(canvas2,event);
+    console.log("rightMouseClicked2: ");
   } 
   
   var currentScroll = document.documentElement.scrollTop;// || document.body.scrollTop;
-  console.log(currentScroll);*/
-//}
+  console.log(currentScroll);
+}
 
-/*function getMousePosition(canvas, event) {
-  let rect = canvas2.getBoundingClientRect();
+function getMousePosition(event) {
+  let rect = canvas.getBoundingClientRect();
   var currentScroll = document.documentElement.scrollTop;
    currentScroll = wrapper2.scrollTop;
   console.log(currentScroll, "currentScroll");
@@ -77,10 +86,26 @@ function hide() {
   let x = event.clientX - rect.left;
   let y = currentScroll - rect.top -5;
   console.log(x, y,"XY position",rect.left,rect.top,);
-  ctx2.fillStyle = "#FFF";
-  ctx2.fillRect(pX, pY, canvas.width/4, canvas.height/4);//PDF area
+  ctx2.fillStyle = "white";
+  ctx2.fillRect(Math.round(x/300,0)*300+100, currentScroll*canvas.height/6*ratio, 300, canvas.height/4*ratio);//PDF area
   //drawImage(image, sourcex, sy, sWidth, sHeight, destinationx, dy, dWidth, dHeight)
-  ctx2.drawImage(canvas,0,0,canvas.width-5,canvas.height/2.5+canvas.height/1.45,pX,pY,canvas.width/4,canvas.height/4);
+    var h1 = window.innerHeight;
+    var ratio = screenHeight2/h1;
+    console.log(x, y);
+if (document.getElementById('text').value ==" "){
+  ctx2.fillRect(Math.round(x/300,0)*300+100, currentScroll*canvas.height/6*ratio, 300, canvas.height/4*ratio);//PDF area
+  ctx2.drawImage(canvas,0,canvas.height/2.5-canvas.height/2.8,canvas.width-5,canvas.height/2.5+canvas.height/1.45,Math.round(x/300,0)*300+100,(currentScroll)*canvas.height/6*ratio,300,canvas.height/4*ratio);
+
+
+ lines();
+ document.getElementById('text').value = " ";
+} 
+if(document.getElementById('text').value !=" "){
+  ctx2.fillRect(Math.round(x/300,0)*300+100, currentScroll*canvas.height/6*ratio, 300, canvas.height/4*ratio);//PDF area
+  ctx2.drawImage(tCtx.canvas,0,0,tCtx.canvas.width*0.3,tCtx.canvas.height*2,(pX)*300,(pY+0.5)*canvas.height/6*ratio,300,canvas.height/4*ratio);
+  document.getElementById('text').value = " ";
+}
+//wrapper2.scrollTo(0,(ypos)*canvas.height/6*ratio);
  lines();
 }*/
 
