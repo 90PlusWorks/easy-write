@@ -24,7 +24,7 @@
 
 function Point(x, y, time) {
   this.x = x;
-  this.y = y;
+  this.y = y;//theuns
   this.time = time || new Date().getTime();
 }
 
@@ -37,7 +37,7 @@ Point.prototype.distanceTo = function (start) {
 };
 
 Point.prototype.equals = function (other) {
-  return this.x === other.x && this.y === other.y && this.time === other.time;
+  return (this.x) === other.x && this.y === other.y && this.time === other.time;
 };
 
 function Bezier(startPoint, control1, control2, endPoint) {
@@ -58,12 +58,14 @@ Bezier.prototype.length = function () {
     var t = i / steps;
     var cx = this._point(t, this.startPoint.x, this.control1.x, this.control2.x, this.endPoint.x);
     var cy = this._point(t, this.startPoint.y, this.control1.y, this.control2.y, this.endPoint.y);
+    cx = cx *1.2;//theuns
+    cy = cy +400;//theuns
     if (i > 0) {
       var xdiff = cx - px;
       var ydiff = cy - py;
       length += Math.sqrt(xdiff * xdiff + ydiff * ydiff);
     }
-    px = cx;
+    px = cx;//theuns
     py = cy;
   }
 
@@ -115,8 +117,8 @@ function SignaturePad(canvas, options) {
   var opts = options || {};
 
   this.velocityFilterWeight = opts.velocityFilterWeight || 0.7;
-  this.minWidth = opts.minWidth || 3.5;
-  this.maxWidth = opts.maxWidth || 4.5;
+  this.minWidth = opts.minWidth || 3.5;//theuns sets the line width
+  this.maxWidth = opts.maxWidth || 4.5;//theuns
   this.throttle = 'throttle' in opts ? opts.throttle : 16; // in miliseconds
   this.minDistance = 'minDistance' in opts ? opts.minDistance : 5;
 
@@ -132,6 +134,7 @@ function SignaturePad(canvas, options) {
   this.penColor = opts.penColor || 'black';
   this.backgroundColor = opts.backgroundColor || 'rgba(0,0,0,0)';
   this.onBegin = opts.onBegin;
+  console.log("opts",this);
   this.onEnd = opts.onEnd;
 
   this._canvas = canvas;
@@ -256,6 +259,7 @@ SignaturePad.prototype.isEmpty = function () {
 // Private methods
 SignaturePad.prototype._strokeBegin = function (event) {
   this._data.push([]);
+  console.log(this._data.push([]));
   this._reset();
   this._strokeUpdate(event);
 
@@ -528,13 +532,14 @@ SignaturePad.prototype._toSVG = function () {
   var canvas = this._canvas;
   var ratio = Math.max(window.devicePixelRatio || 1, 1);//theuns
   var minX = 0;
-  var minY = 0;
+  var minY = 200;
   var maxX = canvas.width / ratio;
   var maxY = canvas.height / ratio;
   var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
   svg.setAttributeNS(null, 'width', canvas.width);
   svg.setAttributeNS(null, 'height', canvas.height);
+  
 
   this._fromData(pointGroups, function (curve, widths, color) {
     var path = document.createElement('path');
@@ -558,7 +563,7 @@ SignaturePad.prototype._toSVG = function () {
     var dotSize = typeof _this2.dotSize === 'function' ? _this2.dotSize() : _this2.dotSize;
     circle.setAttribute('r', dotSize);
     circle.setAttribute('cx', rawPoint.x);
-    circle.setAttribute('cy', rawPoint.y);
+    circle.setAttribute('cy', rawPoint.y);//theuns
     circle.setAttribute('fill', rawPoint.color);
 
     svg.appendChild(circle);

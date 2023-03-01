@@ -1,38 +1,47 @@
-var wrapper = document.getElementById("signature-pad");
-var clearButton = wrapper.querySelector("[data-action=clear]");
-var COPYMEButton = wrapper.querySelector("[data-action=keep]");
-//var EE = wrapper.querySelector("[data-action=enter]");
-var canvas = wrapper.querySelector("canvas");
-var wrapper2 = document.getElementById('display-pad');
-var canvas2 = wrapper2.querySelector("canvas");
-var cheight = parseInt(canvas2.getAttribute("height"));
-var cwidth = parseInt(canvas2.getAttribute("width"));
-var WH = parseInt(canvas.getAttribute("height"));
-var WW = parseInt(canvas.getAttribute("width"));
-ctx2.fillStyle = "white";
-ctx2.fillRect(0,0,cwidth,cheight);
 var screenWidth = window.screen.availWidth;
 var screenHeight = window.screen.availHeight;
+var screenHeight2 = window.innerHeight;
+var wrapper = document.getElementById("signature-pad");//where we write
+//var wrapperchild = wrapper.querySelector("signature-pad--body");
+//var clearButton = wrapper.querySelector("[data-action=clear]");
+//var COPYMEButton = wrapper.querySelector("[data-action=keep]");
+//var EE = wrapper.querySelector("[data-action=enter]");
+var canvas = wrapper.querySelector("canvas");//where we write
+var wrapper2 = document.getElementById('display-pad'); //PDF area
+var canvas2 = wrapper2.querySelector("canvas");
+//var c3 = document.getElementById("mydisplay");
+canvas2.width = screenWidth;//1200;//pdf size
+canvas2.height = 4800;
+var cheight = parseInt(canvas2.getAttribute("height"));//smaller than canvas; top pdf
+var cwidth = parseInt(canvas2.getAttribute("width"));
+canvas.width = screenWidth;//Write Area
+canvas.height = screenHeight;
+var WH = canvas.height;//parseInt(canvas.getAttribute("height"));//larger than canvas2; write area
+var WW = parseInt(canvas.getAttribute("width"));//where we write
+ctx2.fillStyle = "white";
+ctx2.fillRect(0,0,screenWidth,4800);//PDF area
 console.log(screenWidth,screenHeight);
-console.log(cwidth,cheight);
-console.log(WW,WH);
+console.log(cwidth,cheight, " PDF area WxH");
+console.log(WW,WH, " Write Area WxH");
 var tCtx;
 
-var t = 0;
-var offsetpos;
-var signaturePad = new SignaturePad(canvas, {
+
+
+//var t = 0;
+//var offsetpos;
+var signaturePad = new SignaturePad(canvas, {//canvas or ctx
   // It's Necessary to use an opaque color when saving image as JPEG;
   // this option can be omitted if only saving as PNG or SVG
   backgroundColor: 'rgba(0,0,0,t)'
 });
 
-var displayPad = signaturePad;
+//var displayPad = signaturePad;
 var xpos = 0;
 var ypos = 0;
 ctx.lineWidth = 3;
 ctx.strokeStyle = "lightcyan";
 
-var rightMouseClicked = false;
+//var rightMouseClicked = false;
 
 function hide() {
   var x = document.getElementById("hide");
@@ -43,36 +52,39 @@ function hide() {
   }
 } 
 
-function handleMouseDown(e) {
+//function handleMouseDown(event) {
   //e.button describes the mouse button that was clicked
   // 0 is left, 1 is middle, 2 is right
-  if (e.button === 2) {
+  /*if (event.button === 2) {
     rightMouseClicked = true;
-    getMousePosition(canvas,e);
+    getMousePosition(canvas,event);
+    var mpos = getMousePosition(canvas,event);
+    console.log("rightMouseClicked2: ",mpos);
   } 
-  console.log("rightMouseClicked2");
-  var currentScroll = document.documentElement.scrollTop;/* || document.body.scrollTop;*/
-  console.log(currentScroll);
-}
+  
+  var currentScroll = document.documentElement.scrollTop;// || document.body.scrollTop;
+  console.log(currentScroll);*/
+//}
 
-function getMousePosition(canvas, event) {
-  let rect = canvas.getBoundingClientRect();
+/*function getMousePosition(canvas, event) {
+  let rect = canvas2.getBoundingClientRect();
   var currentScroll = document.documentElement.scrollTop;
    currentScroll = wrapper2.scrollTop;
-  console.log(currentScroll, currentScroll);
+  console.log(currentScroll, "currentScroll");
     pX = event.clientX;
     pY = currentScroll;
+    console.log(pX, pY);
   let x = event.clientX - rect.left;
   let y = currentScroll - rect.top -5;
-  
+  console.log(x, y,"XY position",rect.left,rect.top,);
   ctx2.fillStyle = "#FFF";
-  ctx2.fillRect(pX, pY, canvas.width/4, canvas.height/4);
-  /*drawImage(image, sourcex, sy, sWidth, sHeight, destinationx, dy, dWidth, dHeight)*/
+  ctx2.fillRect(pX, pY, canvas.width/4, canvas.height/4);//PDF area
+  //drawImage(image, sourcex, sy, sWidth, sHeight, destinationx, dy, dWidth, dHeight)
   ctx2.drawImage(canvas,0,0,canvas.width-5,canvas.height/2.5+canvas.height/1.45,pX,pY,canvas.width/4,canvas.height/4);
  lines();
-}
+}*/
 
-document.addEventListener('mousedown', handleMouseDown);
+//document.addEventListener('mousedown', handleMouseDown);
 /*document.addEventListener('mouseup', handleMouseUp);*/
 document.addEventListener('contextmenu', function(e) {
   e.preventDefault();
@@ -165,34 +177,25 @@ var r=255;
     var b=255;
     var a=1;
         ctx.lineWidth = 2;
-        ctx.strokeStyle = "cyan";
+        ctx.strokeStyle = "skyblue";
         // Select a fill style
         ctx.fillStyle = 'rgba(0,0,0,t)';
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6);
-        ctx.lineTo(5, canvas.height*0.6);
+        var h1 = window.innerHeight;
+        console.log("h1",h1);
+        ctx.moveTo(canvas.width-5, h1*0.4);
+        ctx.lineTo(5, h1*0.4);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6+3);
-        ctx.lineTo(5, canvas.height*0.6+3);
-        //ctx.stroke();
-
-        ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6+canvas.height/4);
-        ctx.lineTo(5, canvas.height*0.6+canvas.height/4);
+        //ctx.strokeStyle = "green";
+        ctx.moveTo(canvas.width-5, h1*0.6);
+        ctx.lineTo(5, h1*0.6);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6-canvas.height/4);
-        ctx.lineTo(5, canvas.height*0.6-canvas.height/4);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6+canvas.height/4+3);
-        ctx.lineTo(5, canvas.height*0.6+canvas.height/4+3);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6-canvas.height/4+3);
-        ctx.lineTo(5, canvas.height*0.6-canvas.height/4+3);
+        //ctx.strokeStyle = "brown";
+        ctx.moveTo(canvas.width-5, h1*0.8);
+        ctx.lineTo(5, h1*0.8);
         ctx.stroke();
 }
 function linesUndo(){
@@ -201,53 +204,52 @@ function linesUndo(){
     var b=255;
     var a=1;
         ctx.lineWidth = 2;
-        ctx.strokeStyle = "cyan";
+        ctx.strokeStyle = "skyblue";
         // Select a fill style
         ctx.fillStyle = 'rgba(0,0,0,t)';
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6);
-        ctx.lineTo(5, canvas.height*0.6);
+        var h1 = window.innerHeight;
+        console.log("h1",h1);
+        ctx.moveTo(canvas.width-5, h1*0.4);
+        ctx.lineTo(5, h1*0.4);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6+3);
-        ctx.lineTo(5, canvas.height*0.6+3);
-        //ctx.stroke();
-
-        ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6+canvas.height/4);
-        ctx.lineTo(5, canvas.height*0.6+canvas.height/4);
+        //ctx.strokeStyle = "green";
+        ctx.moveTo(canvas.width-5, h1*0.6);
+        ctx.lineTo(5, h1*0.6);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6-canvas.height/4);
-        ctx.lineTo(5, canvas.height*0.6-canvas.height/4);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6+canvas.height/4+3);
-        ctx.lineTo(5, canvas.height*0.6+canvas.height/4+3);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(canvas.width-5, canvas.height*0.6-canvas.height/4+3);
-        ctx.lineTo(5, canvas.height*0.6-canvas.height/4+3);
+        //ctx.strokeStyle = "brown";
+        ctx.moveTo(canvas.width-5, h1*0.8);
+        ctx.lineTo(5, h1*0.8);
         ctx.stroke();
 }
 function centre(){
-    if(xpos != 0){
-        ypos = ypos + 1;}
-    xpos = 1.5;
-ctx2.drawImage(canvas,0,canvas.height/2.5-canvas.height/2.8,canvas.width-5,canvas.height/2.5+canvas.height/1.45,(xpos)*canvas.width/4,(ypos)*canvas.height/6,canvas.width/4,canvas.height/4);
-wrapper2.scrollTo(0,(ypos)*canvas.height/6 - canvas.height/12);
-
+  if(xpos > 0){
+    ypos = ypos + 1;
+  }
+    xpos = 0;
+    var h1 = window.innerHeight;
+    var ratio = screenHeight2/h1;
+if(document.getElementById('text').value ==" "){
+ctx2.drawImage(canvas,0,canvas.height/2.5-canvas.height/2.8,canvas.width-5,canvas.height/2.5+canvas.height/1.45,100+450,(ypos)*canvas.height/6*ratio,300,canvas.height/4*ratio);
+wrapper2.scrollTo(0,(ypos)*canvas.height/6*ratio);
+} 
+if(document.getElementById('text').value !=" "){
+  ctx2.drawImage(tCtx.canvas,0,0,tCtx.canvas.width*0.3,tCtx.canvas.height*2,100+450,(ypos+0.5)*canvas.height/6*ratio,300,canvas.height/4*ratio);
+  document.getElementById('text').value = " ";
+}
+wrapper2.scrollTo(0,(ypos)*canvas.height/6*ratio);
 
 ypos = ypos + 1;
-xpos = 0;
-    lines();
+ lines();
 }
 
 function mynewline(){
     ypos = ypos + 1;
     xpos = 0;
-wrapper2.scrollTo(0,(ypos)*canvas.height/6 - canvas.height/12);
+wrapper2.scrollTo(0,(ypos)*canvas.height/6*ratio);
 }
 
 // Adjust canvas coordinate space taking into account pixel ratio,
@@ -264,7 +266,12 @@ function resizeCanvas() {
   canvas.height = canvas.offsetHeight * ratio;
   canvas.getContext("2d").scale(ratio, ratio);
 
-    lines();
+  // This library does not listen for canvas changes, so after the canvas is automatically
+  // cleared by the browser, SignaturePad#isEmpty might still return false, even though the
+  // canvas looks empty, because the internal data of this library wasn't cleared. To make sure
+  // that the state of this library is consistent with visual state of the canvas, you
+  // have to clear it manually.
+   lines();
 }
 
 // On mobile devices it might make more sense to listen to orientation change,
@@ -304,7 +311,32 @@ function dataURLToBlob(dataURL) {
   return new Blob([uInt8Array], { type: contentType });
 }
 
-clearButton.addEventListener("click", function (event) {
+function copyme() {
+if (xpos == 4){
+    xpos = 0
+    ypos = ypos + 1}
+    //drawImage(image, sourcex, sy, sWidth, sHeight, destinationx, dy, dWidth, dHeight)
+    var h1 = window.innerHeight;
+    var ratio = screenHeight2/h1;
+if (document.getElementById('text').value ==" "){
+  ctx2.drawImage(canvas,0,canvas.height/2.5-canvas.height/2.8,canvas.width-5,canvas.height/2.5+canvas.height/1.45,100+(xpos)*300,(ypos)*canvas.height/6*ratio,300,canvas.height/4*ratio);
+
+
+
+xpos = xpos + 1;
+
+ lines();
+ document.getElementById('text').value = " ";
+} 
+if(document.getElementById('text').value !=" "){
+  ctx2.drawImage(tCtx.canvas,0,0,tCtx.canvas.width*0.3,tCtx.canvas.height*2,100+(xpos)*300,(ypos+0.5)*canvas.height/6*ratio,300,canvas.height/4*ratio);
+  document.getElementById('text').value = " ";
+  xpos = xpos + 1;
+}
+wrapper2.scrollTo(0,(ypos)*canvas.height/6*ratio);
+}
+
+function clearme() {
   var data = signaturePad.toData();
   if (data != "") {
     data.pop(); // remove the last dot or line
@@ -313,103 +345,15 @@ clearButton.addEventListener("click", function (event) {
   } else {
     lines();
   }
-});
-
-/*EE.addEventListener('keydown', function (event) {
- var key=event.keyCode || event.which;
-  if (key==13){
-     copyme();
-  }
-});*/
-function copyme() {
-if (xpos == 4){
-    xpos = 0
-    ypos = ypos + 1}
-if (document.getElementById('text').value ==" "){
-  ctx2.drawImage(canvas,0,canvas.height/2.5-canvas.height/2.8,canvas.width-5,canvas.height/2.5+canvas.height/1.45,(xpos)*canvas.width/4,(ypos)*canvas.height/6,canvas.width/4,canvas.height/4);
-
-wrapper2.scrollTo(0,(ypos)*canvas.height/6 - canvas.height/12);
-
-xpos = xpos + 1;
-
- lines();
- document.getElementById('text').value = " ";
-} 
-if(document.getElementById('text').value !=" "){
-  //tCtx = document.getElementById('textCanvas').getContext('2d'), //Hidden canvas
-  //imageElem = document.getElementById('text'); //Image element
-  //tCtx.canvas.width = 300; //tCtx.measureText(this.value).width;
-  //tCtx.fillText(this.value, 0, 10);
-  ctx2.drawImage(tCtx.canvas,0,0,tCtx.canvas.width*0.3,tCtx.canvas.height*2,(xpos)*canvas.width/4,(ypos)*canvas.height/6,canvas.width/4,canvas.height/4);
-  document.getElementById('text').value = " ";
-  xpos = xpos + 1;
-}
-
 }
 
 // Text input element
 document.getElementById('text').addEventListener('keyup', function() {
   tCtx = document.getElementById('textCanvas').getContext('2d'), //Hidden canvas
   imageElem = document.getElementById('text'); //Image element
-  
-  tCtx.canvas.width = 300; //tCtx.measureText(this.value).width;
-  //tCtx.fillText(this.value, 0, 10);
+  tCtx.canvas.width = 300; 
   tCtx.fillText(this.value, 0, 10);
-  //imageElem.src = tCtx.canvas.toDataURL();
-  //ctx2.drawImage(tCtx.canvas,0,0,tCtx.canvas.width,tCtx.canvas.height*2,(xpos)*canvas.width/4,(ypos)*canvas.height/6,canvas.width/4,canvas.height/4);
-
-  //console.log(imageElem.src);
 }, false);
-
-COPYMEButton.addEventListener("click", function (event) {
-if (xpos == 4){
-    xpos = 0
-    ypos = ypos + 1}
-if (document.getElementById('text').value ==" "){
-  ctx2.drawImage(canvas,0,canvas.height/2.5-canvas.height/2.8,canvas.width-5,canvas.height/2.5+canvas.height/1.45,(xpos)*canvas.width/4,(ypos)*canvas.height/6,canvas.width/4,canvas.height/4);
-
-wrapper2.scrollTo(0,(ypos)*canvas.height/6 - canvas.height/12);
-
-xpos = xpos + 1;
-
- lines();
- document.getElementById('text').value = " ";
-} 
-if(document.getElementById('text').value !=" "){
-  //tCtx = document.getElementById('textCanvas').getContext('2d'), //Hidden canvas
-  //imageElem = document.getElementById('text'); //Image element
-  //tCtx.canvas.width = 300; //tCtx.measureText(this.value).width;
-  //tCtx.fillText(this.value, 0, 10);
-  ctx2.drawImage(tCtx.canvas,0,0,tCtx.canvas.width*0.3,tCtx.canvas.height*2,(xpos)*canvas.width/4,(ypos)*canvas.height/6,canvas.width/4,canvas.height/4);
-  document.getElementById('text').value = " ";
-  xpos = xpos + 1;
-}
-
-});
-// Text input element
-document.getElementById('text').addEventListener('keyup', function() {
-  tCtx = document.getElementById('textCanvas').getContext('2d'), //Hidden canvas
-  imageElem = document.getElementById('text'); //Image element
-  
-  tCtx.canvas.width = 300; //tCtx.measureText(this.value).width;
-  //tCtx.fillText(this.value, 0, 10);
-  tCtx.fillText(this.value, 0, 10);
-  //imageElem.src = tCtx.canvas.toDataURL();
-  //ctx2.drawImage(tCtx.canvas,0,0,tCtx.canvas.width,tCtx.canvas.height*2,(xpos)*canvas.width/4,(ypos)*canvas.height/6,canvas.width/4,canvas.height/4);
-
-  //console.log(imageElem.src);
-}, false);
-
-function handleKeyPress(e){
- var key=e.keyCode || e.which;
-  if (key==13){
-     searching();
-  }
-}
-
-
-
-
 
 
 
