@@ -10,7 +10,7 @@ var canvas = wrapper.querySelector("canvas");//where we write
 var wrapper2 = document.getElementById('display-pad'); //PDF area
 var canvas2 = wrapper2.querySelector("canvas");
 //var c3 = document.getElementById("mydisplay");
-canvas2.width = screenWidth;//1200;//pdf size
+canvas2.width = 1200;//screenWidth;//1200;//pdf size
 canvas2.height = 4800;
 var cheight = parseInt(canvas2.getAttribute("height"));//smaller than canvas; top pdf
 var cwidth = parseInt(canvas2.getAttribute("width"));
@@ -19,7 +19,7 @@ canvas.height = screenHeight;
 var WH = canvas.height;//parseInt(canvas.getAttribute("height"));//larger than canvas2; write area
 var WW = parseInt(canvas.getAttribute("width"));//where we write
 ctx2.fillStyle = "white";
-ctx2.fillRect(0,0,screenWidth,4800);//PDF area
+ctx2.fillRect(0,0,1200,4800);//PDF area
 console.log(screenWidth,screenHeight);
 console.log(cwidth,cheight, " PDF area WxH");
 console.log(WW,WH, " Write Area WxH");
