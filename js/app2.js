@@ -10,16 +10,25 @@ var canvas = wrapper.querySelector("canvas");//where we write
 var wrapper2 = document.getElementById('display-pad'); //PDF area
 var canvas2 = wrapper2.querySelector("canvas");
 //var c3 = document.getElementById("mydisplay");
-canvas2.width = 1200;//screenWidth;//1200;//pdf size
-canvas2.height = 4800;
+var pdfW = 1800;
+var pdfH =4800;
+var marX = 100;
+var scrollY = 150;
+var scrollI = 40;
+var lineW = 5;
+var resR = 1;
+canvas2.width = pdfW;//screenWidth;//1200;//pdf size
+canvas2.height = pdfH;
 var cheight = parseInt(canvas2.getAttribute("height"));//smaller than canvas; top pdf
 var cwidth = parseInt(canvas2.getAttribute("width"));
 canvas.width = screenWidth;//Write Area
+var oldWidth = canvas.width;
+var oldX = 0;
 canvas.height = screenHeight;
 var WH = canvas.height;//parseInt(canvas.getAttribute("height"));//larger than canvas2; write area
 var WW = parseInt(canvas.getAttribute("width"));//where we write
 ctx2.fillStyle = "white";
-ctx2.fillRect(0,0,1200,4800);//PDF area
+ctx2.fillRect(0,0,pdfW,pdfH);//PDF area
 console.log(screenWidth,screenHeight);
 console.log(cwidth,cheight, " PDF area WxH");
 console.log(WW,WH, " Write Area WxH");
@@ -36,9 +45,9 @@ var signaturePad = new SignaturePad(canvas, {//canvas or ctx
 });
 
 //var displayPad = signaturePad;
-var xpos = 0;
+var xpos = marX;
 var ypos = 0;
-ctx.lineWidth = 3;
+ctx.lineWidth = lineW;
 ctx.strokeStyle = "lightcyan";
 
 //var rightMouseClicked = false;
@@ -201,7 +210,7 @@ var r=255;
     var g=255;
     var b=255;
     var a=1;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = lineW;
         ctx.strokeStyle = "skyblue";
         // Select a fill style
         ctx.fillStyle = 'rgba(0,0,0,t)';
@@ -228,7 +237,7 @@ function linesUndo(){
     var g=255;
     var b=255;
     var a=1;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = lineW;
         ctx.strokeStyle = "skyblue";
         // Select a fill style
         ctx.fillStyle = 'rgba(0,0,0,t)';
@@ -251,36 +260,40 @@ function linesUndo(){
         ctx.stroke();
 }
 function centre(){
-  if(xpos > 0){
+  if(xpos > marX){
     ypos = ypos + 1;
   }
-    xpos = 0;
-    var h1 = window.innerHeight;
-    var ratio = screenHeight2/h1;
+    
 if(document.getElementById('text').value ==" "){
-ctx2.drawImage(canvas,0,canvas.height/2.5-canvas.height/2.8,canvas.width-5,canvas.height/2.5+canvas.height/1.45,100+450,(ypos)*canvas.height/6*ratio,300,canvas.height/4*ratio);
-wrapper2.scrollTo(0,(ypos)*canvas.height/6*ratio);
+  //drawImage(image, sourcex, sy, sWidth, sHeight, destinationx, dy, dWidth, dHeight)
+
+
+ctx2.drawImage(canvas,0,0,canvas.width,canvas.height,100+650,(ypos)*scrollY,canvas.width/6,198);
+
+
 } 
 if(document.getElementById('text').value !=" "){
-  ctx2.drawImage(tCtx.canvas,0,0,tCtx.canvas.width*0.3,tCtx.canvas.height*2,100+450,(ypos+0.5)*canvas.height/6*ratio,300,canvas.height/4*ratio);
+  ctx2.drawImage(tCtx.canvas,0,0,tCtx.canvas.width*0.3,tCtx.canvas.height*2,100+650,(ypos+0.5)*canvas.height/6,canvas.width/6,198);
   document.getElementById('text').value = " ";
 }
-wrapper2.scrollTo(0,(ypos)*canvas.height/6*ratio);
 
+wrapper2.scrollTo(600,(ypos)*scrollY+scrollI);
 ypos = ypos + 1;
+xpos = marX;
  lines();
 }
 
 function mynewline(){
     ypos = ypos + 1;
-    xpos = 0;
-wrapper2.scrollTo(0,(ypos)*canvas.height/6*ratio);
+    xpos = marX;
+wrapper2.scrollTo(0,(ypos)*scrollY+scrollI);//(ypos)*canvas.height/6*ratio);
 }
 
 // Adjust canvas coordinate space taking into account pixel ratio,
 // to make it look crisp on mobile devices.
 // This also causes canvas to be cleared.
 function resizeCanvas() {
+  
   // When zoomed out to less than 100%, for some very strange reason,
   // some browsers report devicePixelRatio as less than 1
   // and only part of the canvas is cleared then.
@@ -337,28 +350,23 @@ function dataURLToBlob(dataURL) {
 }
 
 function copyme() {
-if (xpos == 4){
-    xpos = 0
+  if (xpos+canvas.width/6 > 1700 ){ //==4 previously
+    xpos = marX;
     ypos = ypos + 1}
     //drawImage(image, sourcex, sy, sWidth, sHeight, destinationx, dy, dWidth, dHeight)
-    var h1 = window.innerHeight;
-    var ratio = screenHeight2/h1;
 if (document.getElementById('text').value ==" "){
-  ctx2.drawImage(canvas,0,canvas.height/2.5-canvas.height/2.8,canvas.width-5,canvas.height/2.5+canvas.height/1.45,100+(xpos)*300,(ypos)*canvas.height/6*ratio,300,canvas.height/4*ratio);
-
-
-
-xpos = xpos + 1;
-
+ctx2.drawImage(canvas,0,0,canvas.width,canvas.height,xpos,(ypos)*scrollY,(canvas.width)/6,198);
  lines();
  document.getElementById('text').value = " ";
 } 
 if(document.getElementById('text').value !=" "){
-  ctx2.drawImage(tCtx.canvas,0,0,tCtx.canvas.width*0.3,tCtx.canvas.height*2,100+(xpos)*300,(ypos+0.5)*canvas.height/6*ratio,300,canvas.height/4*ratio);
+  ctx2.drawImage(tCtx.canvas,0,0,tCtx.canvas.width*0.3,tCtx.canvas.height*2,xpos,(ypos+0.5)*scrollY,(canvas.width)/6,198);
   document.getElementById('text').value = " ";
-  xpos = xpos + 1;
+
 }
-wrapper2.scrollTo(0,(ypos)*canvas.height/6*ratio);
+wrapper2.scrollTo((xpos)-150,(ypos)*scrollY+scrollI);//(ypos)*canvas.height/6*ratio);
+xpos = xpos + canvas.width/6;
+
 }
 
 function clearme() {
