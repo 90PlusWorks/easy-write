@@ -53,7 +53,7 @@ ctx.strokeStyle = "lightcyan";
 //var rightMouseClicked = false;
 function smooth3() {signaturePad.throttle = signaturePad.throttle + 30;} 		      
 function rough3() {
-  if (smooth > 15) {smooth = smooth - 10;}
+  if (signaturePad.throttle > 40) {signaturePad.throttle = signaturePad.throttle - 30;}
 } 
 function hide() {
   var x = document.getElementById("hide");
