@@ -391,7 +391,7 @@ function dataURLToBlob(dataURL) {
 }
 
 function copyme() {
-  if (xpos+canvas.width/6 > 1700 ){ //==4 previously
+  if (xpos+canvas.width/6 > screenWidth ){ //==4 previously
     xpos = marX;
     ypos = ypos + 1}
     //drawImage(image, sourcex, sy, sWidth, sHeight, destinationx, dy, dWidth, dHeight)
