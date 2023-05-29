@@ -49,7 +49,7 @@ function Bezier(startPoint, control1, control2, endPoint) {
 
 // Returns approximated length.
 Bezier.prototype.length = function () {
-  var steps = 10;
+  var steps = 100;
   var length = 0;
   var px = void 0;
   var py = void 0;
