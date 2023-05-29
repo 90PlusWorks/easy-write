@@ -15,13 +15,17 @@
  * http://www.lemoda.net/maths/bezier-length/index.html
  *
  */
-
+var smooth = 10;
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
 	(global.SignaturePad = factory());
 }(this, (function () { 'use strict';
 
+function smooth() {smooth = smooth + 10;} 		      
+function rough() {
+  if (smooth > 15) {smooth = smooth - 10;}
+} 		      
 function Point(x, y, time) {
   this.x = x;
   this.y = y;//theuns
