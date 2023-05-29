@@ -51,9 +51,9 @@ ctx.lineWidth = lineW;
 ctx.strokeStyle = "lightcyan";
 
 //var rightMouseClicked = false;
-function smooth3() {signaturePad.throttle = signaturePad.throttle + 30;} 		      
+function smooth3() {signaturePad.minDistance = signaturePad.minDistance + 30;} 		      
 function rough3() {
-  if (signaturePad.throttle > 40) {signaturePad.throttle = signaturePad.throttle - 30;}
+  if (signaturePad.minDistance > 40) {signaturePad.minDistance = signaturePad.minDistance - 30;}
 } 
 function hide() {
   var x = document.getElementById("hide");
