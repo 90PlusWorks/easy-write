@@ -51,7 +51,10 @@ ctx.lineWidth = lineW;
 ctx.strokeStyle = "lightcyan";
 
 //var rightMouseClicked = false;
-
+function smooth3() {signaturePad. = signaturePad. + 30;} 		      
+function rough3() {
+  if (smooth > 15) {smooth = smooth - 10;}
+} 
 function hide() {
   var x = document.getElementById("hide");
   if (x.style.display === "none") {
